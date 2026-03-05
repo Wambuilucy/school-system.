@@ -7,16 +7,25 @@ import {
   History, 
   FileText, 
   Settings,
-  Zap
+  Zap,
+  GraduationCap,
+  UserCheck,
+  BookOpen
 } from 'lucide-react';
 
-const navItems = [
+const messagingItems = [
   { path: '/', icon: MessageSquare, label: 'Dashboard' },
   { path: '/compose', icon: Send, label: 'Compose Message' },
   { path: '/groups', icon: Users, label: 'Contact Groups' },
   { path: '/templates', icon: FileText, label: 'Templates' },
   { path: '/history', icon: History, label: 'Message History' },
   { path: '/settings', icon: Settings, label: 'Settings' },
+];
+
+const schoolItems = [
+  { path: '/teacher', icon: GraduationCap, label: 'Teacher Dashboard' },
+  { path: '/parent', icon: UserCheck, label: 'Parent Dashboard' },
+  { path: '/students', icon: BookOpen, label: 'Students Dashboard' },
 ];
 
 export function Sidebar() {
@@ -37,8 +46,30 @@ export function Sidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 space-y-1 px-3 py-4">
-          {navItems.map((item) => {
+        <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
+          <p className="px-3 mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Messaging</p>
+          {messagingItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                  isActive
+                    ? "bg-primary text-primary-foreground shadow-md"
+                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                )}
+              >
+                <item.icon className="h-5 w-5" />
+                {item.label}
+              </Link>
+            );
+          })}
+
+          <div className="my-3 border-t border-border" />
+          <p className="px-3 mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">School</p>
+          {schoolItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <Link
