@@ -100,19 +100,8 @@ export default function Suggestions() {
   };
 
   return (
-    <Layout>
+    <Layout title="Suggestion Box" subtitle={isTeacher ? 'Review feedback from the school community' : 'Share your ideas to help improve our school'}>
       <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl gradient-primary shadow-glow">
-            <Lightbulb className="h-6 w-6 text-primary-foreground" />
-          </div>
-          <div>
-            <h1 className="font-display text-3xl font-bold text-foreground">Suggestion Box</h1>
-            <p className="text-muted-foreground">
-              {isTeacher ? 'Review feedback from the school community' : 'Share your ideas to help improve our school'}
-            </p>
-          </div>
-        </div>
 
         {isTeacher && (
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
