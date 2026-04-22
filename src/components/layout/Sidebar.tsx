@@ -72,7 +72,7 @@ export function Sidebar() {
             <Zap className="h-5 w-5 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="font-display text-lg font-bold text-foreground">BroadcastHub</h1>
+            <h1 className="font-display text-lg font-bold text-foreground">SchoolLink</h1>
             <p className="text-xs text-muted-foreground capitalize">{role} Portal</p>
           </div>
         </div>
