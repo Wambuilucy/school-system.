@@ -50,7 +50,7 @@ export default function Welcome() {
       <div className="space-y-6">
         {/* Welcome banner */}
         <div className="rounded-2xl gradient-primary p-6 text-primary-foreground">
-          <h2 className="font-display text-2xl font-bold">Welcome to BroadcastHub</h2>
+          <h2 className="font-display text-2xl font-bold">Welcome to SchoolLink</h2>
           <p className="mt-1 text-primary-foreground/80">
             {user.role === 'teacher' && 'You have full access to manage students, messages, events, and more.'}
             {user.role === 'parent' && "Track your child's academic progress, fees, and school activities."}
