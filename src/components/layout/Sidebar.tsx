@@ -9,26 +9,40 @@ import {
 import { Button } from '@/components/ui/button';
 
 const allItems = {
+  // Top: orientation & alerts
+  overview: [
+    { path: '/welcome', icon: Home, label: 'Home', roles: ['teacher', 'parent', 'student'] },
+    { path: '/notifications', icon: Bell, label: 'Notifications', roles: ['teacher', 'parent', 'student'] },
+  ],
+  // Core role dashboards
+  dashboards: [
+    { path: '/teacher', icon: GraduationCap, label: 'Teacher Dashboard', roles: ['teacher'] },
+    { path: '/parent', icon: UserCheck, label: "Child's Dashboard", roles: ['parent'] },
+    { path: '/student-portal', icon: BookOpen, label: 'My Results', roles: ['student'] },
+    { path: '/students', icon: Users, label: 'All Students', roles: ['teacher'] },
+  ],
+  // Academics
+  academics: [
+    { path: '/transcript', icon: ScrollText, label: 'Transcripts', roles: ['teacher', 'parent', 'student'] },
+    { path: '/finance', icon: DollarSign, label: 'Finance', roles: ['teacher', 'parent', 'student'] },
+  ],
+  // School life
+  schoolLife: [
+    { path: '/events', icon: CalendarDays, label: 'Events', roles: ['teacher', 'parent', 'student'] },
+    { path: '/trips', icon: Bus, label: 'School Trips', roles: ['teacher', 'parent', 'student'] },
+    { path: '/cocurricular', icon: Trophy, label: 'Co-curricular', roles: ['teacher', 'parent', 'student'] },
+    { path: '/teacher-directory', icon: Users, label: 'Staff Directory', roles: ['teacher', 'parent'] },
+  ],
+  // Messaging (teacher admin)
   messaging: [
-    { path: '/', icon: MessageSquare, label: 'Dashboard', roles: ['teacher'] },
+    { path: '/', icon: MessageSquare, label: 'Messaging Dashboard', roles: ['teacher'] },
     { path: '/compose', icon: Send, label: 'Compose Message', roles: ['teacher'] },
     { path: '/groups', icon: Users, label: 'Contact Groups', roles: ['teacher'] },
     { path: '/templates', icon: FileText, label: 'Templates', roles: ['teacher'] },
     { path: '/history', icon: History, label: 'Message History', roles: ['teacher'] },
   ],
-  school: [
-    { path: '/welcome', icon: Home, label: 'Home', roles: ['teacher', 'parent', 'student'] },
-    { path: '/notifications', icon: Bell, label: 'Notifications', roles: ['teacher', 'parent', 'student'] },
-    { path: '/teacher', icon: GraduationCap, label: 'Teacher Dashboard', roles: ['teacher'] },
-    { path: '/parent', icon: UserCheck, label: "Child's Dashboard", roles: ['parent'] },
-    { path: '/student-portal', icon: BookOpen, label: 'My Results', roles: ['student'] },
-    { path: '/students', icon: BookOpen, label: 'All Students', roles: ['teacher'] },
-    { path: '/transcript', icon: ScrollText, label: 'Transcripts', roles: ['teacher', 'parent', 'student'] },
-    { path: '/finance', icon: DollarSign, label: 'Finance', roles: ['teacher', 'parent', 'student'] },
-    { path: '/events', icon: CalendarDays, label: 'Events', roles: ['teacher', 'parent', 'student'] },
-    { path: '/trips', icon: Bus, label: 'School Trips', roles: ['teacher', 'parent', 'student'] },
-    { path: '/teacher-directory', icon: Users, label: 'Staff Directory', roles: ['teacher', 'parent'] },
-    { path: '/cocurricular', icon: Trophy, label: 'Co-curricular', roles: ['teacher', 'parent', 'student'] },
+  // Engagement & system
+  engagement: [
     { path: '/suggestions', icon: Lightbulb, label: 'Suggestion Box', roles: ['teacher', 'parent', 'student'] },
     { path: '/settings', icon: Settings, label: 'Settings', roles: ['teacher'] },
   ],
