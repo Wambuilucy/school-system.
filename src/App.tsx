@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { I18nProvider } from "@/contexts/I18nContext";
 import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
 import Notifications from "./pages/Notifications";
@@ -25,6 +26,15 @@ import History from "./pages/History";
 import Settings from "./pages/Settings";
 import Suggestions from "./pages/Suggestions";
 import Learning from "./pages/Learning";
+import Attendance from "./pages/Attendance";
+import Assignments from "./pages/Assignments";
+import Timetable from "./pages/Timetable";
+import Chat from "./pages/Chat";
+import Exams from "./pages/Exams";
+import Library from "./pages/Library";
+import Behavior from "./pages/Behavior";
+import Health from "./pages/Health";
+import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -53,6 +63,14 @@ function AppRoutes() {
       <Route path="/cocurricular" element={<ProtectedRoute><Cocurricular /></ProtectedRoute>} />
       <Route path="/suggestions" element={<ProtectedRoute><Suggestions /></ProtectedRoute>} />
       <Route path="/learning" element={<ProtectedRoute><Learning /></ProtectedRoute>} />
+      <Route path="/attendance" element={<ProtectedRoute><Attendance /></ProtectedRoute>} />
+      <Route path="/assignments" element={<ProtectedRoute><Assignments /></ProtectedRoute>} />
+      <Route path="/timetable" element={<ProtectedRoute><Timetable /></ProtectedRoute>} />
+      <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+      <Route path="/exams" element={<ProtectedRoute><Exams /></ProtectedRoute>} />
+      <Route path="/library" element={<ProtectedRoute><Library /></ProtectedRoute>} />
+      <Route path="/behavior" element={<ProtectedRoute><Behavior /></ProtectedRoute>} />
+      <Route path="/health" element={<ProtectedRoute><Health /></ProtectedRoute>} />
       
       {/* Teacher-only */}
       <Route path="/" element={<ProtectedRoute allowedRoles={['teacher']}><Index /></ProtectedRoute>} />
@@ -63,6 +81,7 @@ function AppRoutes() {
       <Route path="/templates" element={<ProtectedRoute allowedRoles={['teacher']}><Templates /></ProtectedRoute>} />
       <Route path="/history" element={<ProtectedRoute allowedRoles={['teacher']}><History /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute allowedRoles={['teacher']}><Settings /></ProtectedRoute>} />
+      <Route path="/analytics" element={<ProtectedRoute allowedRoles={['teacher']}><Analytics /></ProtectedRoute>} />
       <Route path="/teacher-directory" element={<ProtectedRoute allowedRoles={['teacher', 'parent']}><TeacherDirectory /></ProtectedRoute>} />
       
       {/* Parent-only */}
@@ -83,9 +102,11 @@ const App = () => (
       <Toaster />
       <Sonner position="top-right" />
       <BrowserRouter>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
+        <I18nProvider>
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
+        </I18nProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
