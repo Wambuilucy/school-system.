@@ -19,22 +19,20 @@ export default function Timetable() {
           <div className="grid gap-2 min-w-[900px]" style={{ gridTemplateColumns: '80px repeat(5, 1fr)' }}>
             <div></div>
             {days.map(d => <div key={d} className="text-center font-semibold text-sm py-2">{d}</div>)}
-            {timeSlots.map(time => (
-              <>
-                <div key={`t-${time}`} className="text-xs font-medium text-muted-foreground self-center text-right pr-2">{time}</div>
-                {days.map(day => {
-                  const slot = timetable.find(s => s.day === day && s.time === time);
-                  if (!slot) return <div key={`${day}-${time}`} className="rounded border border-dashed border-border" />;
-                  return (
-                    <div key={`${day}-${time}`} className={cn('rounded-lg border p-2 transition-all hover:scale-[1.02]', colorMap[slot.color])}>
-                      <p className="font-semibold text-sm leading-tight">{slot.subject}</p>
-                      {slot.teacher && <p className="text-xs opacity-80 mt-0.5">{slot.teacher}</p>}
-                      {slot.room && <p className="text-xs opacity-70">{slot.room}</p>}
-                    </div>
-                  );
-                })}
-              </>
-            ))}
+            {timeSlots.flatMap(time => [
+              <div key={`t-${time}`} className="text-xs font-medium text-muted-foreground self-center text-right pr-2">{time}</div>,
+              ...days.map(day => {
+                const slot = timetable.find(s => s.day === day && s.time === time);
+                if (!slot) return <div key={`${day}-${time}`} className="rounded border border-dashed border-border" />;
+                return (
+                  <div key={`${day}-${time}`} className={cn('rounded-lg border p-2 transition-all hover:scale-[1.02]', colorMap[slot.color])}>
+                    <p className="font-semibold text-sm leading-tight">{slot.subject}</p>
+                    {slot.teacher && <p className="text-xs opacity-80 mt-0.5">{slot.teacher}</p>}
+                    {slot.room && <p className="text-xs opacity-70">{slot.room}</p>}
+                  </div>
+                );
+              })
+            ])}
           </div>
         </CardContent>
       </Card>
