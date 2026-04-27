@@ -4,7 +4,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { 
   MessageSquare, Users, Send, History, FileText, Settings, Zap,
   GraduationCap, UserCheck, BookOpen, ScrollText, DollarSign,
-  CalendarDays, Bell, Home, Bus, Trophy, LogOut, Lightbulb, PlayCircle
+  CalendarDays, Bell, Home, Bus, Trophy, LogOut, Lightbulb, PlayCircle,
+  ClipboardCheck, ClipboardList, CalendarRange, MessagesSquare, FileBarChart,
+  Library as LibraryIcon, Award, HeartPulse, BarChart3
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -19,10 +21,16 @@ const allItems = {
     { path: '/parent', icon: UserCheck, label: "Child's Dashboard", roles: ['parent'] },
     { path: '/student-portal', icon: BookOpen, label: 'My Results', roles: ['student'] },
     { path: '/students', icon: Users, label: 'All Students', roles: ['teacher'] },
+    { path: '/analytics', icon: BarChart3, label: 'Admin Analytics', roles: ['teacher'] },
   ],
   // Academics
   academics: [
+    { path: '/timetable', icon: CalendarRange, label: 'Timetable', roles: ['teacher', 'parent', 'student'] },
+    { path: '/attendance', icon: ClipboardCheck, label: 'Attendance', roles: ['teacher', 'parent', 'student'] },
+    { path: '/assignments', icon: ClipboardList, label: 'Assignments', roles: ['teacher', 'parent', 'student'] },
+    { path: '/exams', icon: FileBarChart, label: 'Exams & Results', roles: ['teacher', 'parent', 'student'] },
     { path: '/learning', icon: PlayCircle, label: 'Learning Hub', roles: ['teacher', 'parent', 'student'] },
+    { path: '/library', icon: LibraryIcon, label: 'Library', roles: ['teacher', 'parent', 'student'] },
     { path: '/transcript', icon: ScrollText, label: 'Transcripts', roles: ['teacher', 'parent', 'student'] },
     { path: '/finance', icon: DollarSign, label: 'Finance', roles: ['teacher', 'parent', 'student'] },
   ],
@@ -31,11 +39,14 @@ const allItems = {
     { path: '/events', icon: CalendarDays, label: 'Events', roles: ['teacher', 'parent', 'student'] },
     { path: '/trips', icon: Bus, label: 'School Trips', roles: ['teacher', 'parent', 'student'] },
     { path: '/cocurricular', icon: Trophy, label: 'Co-curricular', roles: ['teacher', 'parent', 'student'] },
+    { path: '/behavior', icon: Award, label: 'Behavior & Merits', roles: ['teacher', 'parent', 'student'] },
+    { path: '/health', icon: HeartPulse, label: 'Health Records', roles: ['teacher', 'parent', 'student'] },
     { path: '/teacher-directory', icon: Users, label: 'Staff Directory', roles: ['teacher', 'parent'] },
   ],
   // Messaging (teacher admin)
   messaging: [
     { path: '/', icon: MessageSquare, label: 'Messaging Dashboard', roles: ['teacher'] },
+    { path: '/chat', icon: MessagesSquare, label: 'Direct Messages', roles: ['teacher', 'parent', 'student'] },
     { path: '/compose', icon: Send, label: 'Compose Message', roles: ['teacher'] },
     { path: '/groups', icon: Users, label: 'Contact Groups', roles: ['teacher'] },
     { path: '/templates', icon: FileText, label: 'Templates', roles: ['teacher'] },
