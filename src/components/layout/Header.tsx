@@ -1,6 +1,7 @@
 import { Bell, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 interface HeaderProps {
   title: string;
@@ -23,6 +24,7 @@ export function Header({ title, subtitle }: HeaderProps) {
             className="w-64 pl-9"
           />
         </div>
+        <LanguageSwitcher />
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-5 w-5" />
           <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
