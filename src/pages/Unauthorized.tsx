@@ -10,7 +10,7 @@ export default function Unauthorized() {
   const home = defaultPathFor(user?.role);
 
   return (
-    <Layout>
+    <Layout title="Access restricted">
       <div className="flex flex-col items-center justify-center text-center py-20">
         <div className="h-16 w-16 rounded-full bg-destructive/10 flex items-center justify-center mb-4">
           <ShieldAlert className="h-8 w-8 text-destructive" />
