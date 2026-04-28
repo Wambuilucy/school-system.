@@ -47,13 +47,17 @@ async function buildAuthUser(supaUser: User): Promise<AuthUser> {
     supabase.from('user_roles').select('role').eq('user_id', supaUser.id),
   ]);
   const roles = (rolesRows ?? []).map(r => r.role as UserRole);
+  const primary = pickPrimaryRole(roles);
   return {
     id: supaUser.id,
     email: supaUser.email ?? '',
     name: profile?.display_name ?? supaUser.email?.split('@')[0] ?? 'User',
     avatar: profile?.avatar_url ?? undefined,
     roles: roles.length ? roles : ['student'],
-    role: pickPrimaryRole(roles),
+    role: primary,
+    // Mock-link to demo student until a real students/parent_students table exists
+    ...(primary === 'parent' ? { childrenIds: ['s1'] } : {}),
+    ...(primary === 'student' ? { studentId: 's1' } : {}),
   };
 }
 
