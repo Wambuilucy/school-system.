@@ -11,6 +11,10 @@ export interface AuthUser {
   role: UserRole;
   roles: UserRole[];
   avatar?: string;
+  /** For parents: which student IDs they can see (mock-linked until a parent_students table exists). */
+  childrenIds?: string[];
+  /** For students: their own student ID (mock-linked until students table exists). */
+  studentId?: string;
 }
 
 interface AuthContextType {
