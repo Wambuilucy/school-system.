@@ -40,7 +40,8 @@ const colorMap = {
 
 export default function Notifications() {
   const { user } = useAuth();
-  const role = user?.role || 'student';
+  const role: 'teacher' | 'parent' | 'student' =
+    user?.role === 'teacher' || user?.role === 'parent' || user?.role === 'student' ? user.role : 'student';
   const filtered = notifications.filter(n => n.forRoles.includes(role));
 
   return (
