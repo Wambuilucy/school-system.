@@ -92,12 +92,17 @@ export default function UserManagement() {
   };
 
   const q = search.trim().toLowerCase();
-  const filtered = rows.filter(r =>
-    !q ||
-    r.display_name?.toLowerCase().includes(q) ||
-    r.email?.toLowerCase().includes(q) ||
-    r.id.toLowerCase().includes(q)
-  );
+  const filtered = rows.filter(r => {
+    const matchesText =
+      !q ||
+      r.display_name?.toLowerCase().includes(q) ||
+      r.email?.toLowerCase().includes(q) ||
+      r.id.toLowerCase().includes(q);
+    if (!matchesText) return false;
+    if (roleFilters.size === 0) return true;
+    if (roleFilters.has('none') && r.roles.length === 0) return true;
+    return r.roles.some(role => roleFilters.has(role));
+  });
 
   return (
     <Layout title="User Management">
@@ -121,6 +126,36 @@ export default function UserManagement() {
               onChange={(e) => setSearch(e.target.value)}
               className="max-w-sm mt-2"
             />
+            <div className="flex flex-wrap items-center gap-2 mt-3">
+              <span className="text-xs text-muted-foreground mr-1">Filter by role:</span>
+              {FILTER_ROLES.map(r => {
+                const active = roleFilters.has(r);
+                return (
+                  <button
+                    key={r}
+                    type="button"
+                    onClick={() => toggleFilter(r)}
+                    className={
+                      'px-3 py-1 rounded-full text-xs font-medium border transition-colors capitalize ' +
+                      (active
+                        ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                        : 'bg-background text-muted-foreground border-border hover:bg-secondary hover:text-foreground')
+                    }
+                  >
+                    {r === 'none' ? 'No role' : r}
+                  </button>
+                );
+              })}
+              {roleFilters.size > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setRoleFilters(new Set())}
+                  className="text-xs text-muted-foreground hover:text-foreground underline ml-1"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
           </CardHeader>
           <CardContent>
             {loading ? (
