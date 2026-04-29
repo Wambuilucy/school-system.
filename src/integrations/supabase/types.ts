@@ -20,6 +20,7 @@ export type Database = {
           class_grade: string | null
           created_at: string
           display_name: string | null
+          email: string | null
           id: string
           phone: string | null
           updated_at: string
@@ -29,6 +30,7 @@ export type Database = {
           class_grade?: string | null
           created_at?: string
           display_name?: string | null
+          email?: string | null
           id: string
           phone?: string | null
           updated_at?: string
@@ -38,6 +40,7 @@ export type Database = {
           class_grade?: string | null
           created_at?: string
           display_name?: string | null
+          email?: string | null
           id?: string
           phone?: string | null
           updated_at?: string
