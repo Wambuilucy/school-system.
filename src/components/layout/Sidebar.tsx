@@ -6,7 +6,7 @@ import {
   GraduationCap, UserCheck, BookOpen, ScrollText, DollarSign,
   CalendarDays, Bell, Home, Bus, Trophy, LogOut, Lightbulb, PlayCircle,
   ClipboardCheck, ClipboardList, CalendarRange, MessagesSquare, FileBarChart,
-  Library as LibraryIcon, Award, HeartPulse, BarChart3
+  Library as LibraryIcon, Award, HeartPulse, BarChart3, ShieldCheck
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -55,8 +55,12 @@ const allItems = {
   // Engagement & system — Suggestions then Notifications
   engagement: [
     { path: '/suggestions', icon: Lightbulb, label: 'Suggestion Box', roles: ['teacher', 'parent', 'student'] },
-    { path: '/notifications', icon: Bell, label: 'Notifications', roles: ['teacher', 'parent', 'student'] },
+    { path: '/notifications', icon: Bell, label: 'Notifications', roles: ['teacher', 'parent', 'student', 'admin'] },
     { path: '/settings', icon: Settings, label: 'Settings', roles: ['teacher'] },
+  ],
+  // Admin
+  admin: [
+    { path: '/admin/users', icon: ShieldCheck, label: 'User Management', roles: ['admin'] },
   ],
 };
 
@@ -72,6 +76,7 @@ export function Sidebar() {
     { label: 'School Life', items: allItems.schoolLife.filter(i => i.roles.includes(role)) },
     { label: 'Messaging', items: allItems.messaging.filter(i => i.roles.includes(role)) },
     { label: 'Engagement', items: allItems.engagement.filter(i => i.roles.includes(role)) },
+    { label: 'Admin', items: allItems.admin.filter(i => i.roles.includes(role)) },
   ].filter(s => s.items.length > 0);
 
   return (
