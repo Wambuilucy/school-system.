@@ -18,13 +18,23 @@ type Row = {
 };
 
 const ASSIGNABLE: Exclude<UserRole, 'admin'>[] = ['teacher', 'parent', 'student'];
+const FILTER_ROLES: (UserRole | 'none')[] = ['admin', 'teacher', 'parent', 'student', 'none'];
 
 export default function UserManagement() {
   const { user } = useAuth();
   const [rows, setRows] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [roleFilters, setRoleFilters] = useState<Set<UserRole | 'none'>>(new Set());
   const [busy, setBusy] = useState<string | null>(null);
+
+  const toggleFilter = (r: UserRole | 'none') => {
+    setRoleFilters(prev => {
+      const next = new Set(prev);
+      next.has(r) ? next.delete(r) : next.add(r);
+      return next;
+    });
+  };
 
   const load = async () => {
     setLoading(true);
