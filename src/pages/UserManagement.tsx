@@ -134,6 +134,7 @@ export default function UserManagement() {
                       <tr key={row.id} className="border-b border-border/50">
                         <td className="py-3 pr-4">
                           <div className="font-medium">{row.display_name ?? '—'}</div>
+                          <div className="text-xs text-muted-foreground">{row.email ?? '—'}</div>
                           <div className="text-xs text-muted-foreground font-mono">{row.id.slice(0, 8)}…</div>
                         </td>
                         <td className="py-3 pr-4">
