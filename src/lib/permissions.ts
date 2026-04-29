@@ -36,6 +36,7 @@ export const routePermissions: Record<string, UserRole[]> = {
   '/history': ['teacher'],
   '/settings': ['teacher'],
   '/analytics': ['teacher'],
+  '/admin/users': ['admin'],
 
   // Teacher + Parent
   '/teacher-directory': ['teacher', 'parent'],
@@ -138,6 +139,7 @@ export function canAccessRoute(path: string, role: UserRole | undefined | null):
  */
 export function defaultPathFor(role: UserRole | undefined | null): string {
   switch (role) {
+    case 'admin': return '/admin/users';
     case 'teacher': return '/';
     case 'parent': return '/parent';
     case 'student': return '/student-portal';

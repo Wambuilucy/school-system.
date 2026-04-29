@@ -36,6 +36,7 @@ import Behavior from "./pages/Behavior";
 import Health from "./pages/Health";
 import Analytics from "./pages/Analytics";
 import Unauthorized from "./pages/Unauthorized";
+import UserManagement from "./pages/UserManagement";
 import NotFound from "./pages/NotFound";
 import { canAccessRoute, defaultPathFor } from "@/lib/permissions";
 import type { UserRole } from "@/contexts/AuthContext";
@@ -116,6 +117,9 @@ function AppRoutes() {
 
       {/* Student-only */}
       <Route path="/student-portal" element={<ProtectedRoute path="/student-portal"><StudentPortal /></ProtectedRoute>} />
+
+      {/* Admin-only */}
+      <Route path="/admin/users" element={<ProtectedRoute path="/admin/users"><UserManagement /></ProtectedRoute>} />
 
       {/* Fallbacks */}
       <Route path="*" element={isAuthenticated ? <NotFound /> : <Navigate to="/login" replace />} />
