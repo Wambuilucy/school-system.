@@ -13,6 +13,7 @@ import { ShieldCheck, Loader2 } from 'lucide-react';
 type Row = {
   id: string;
   display_name: string | null;
+  email: string | null;
   roles: UserRole[];
 };
 
@@ -28,7 +29,7 @@ export default function UserManagement() {
   const load = async () => {
     setLoading(true);
     const [{ data: profiles, error: pErr }, { data: roles, error: rErr }] = await Promise.all([
-      supabase.from('profiles').select('id, display_name').order('display_name'),
+      supabase.from('profiles').select('id, display_name, email').order('display_name'),
       supabase.from('user_roles').select('user_id, role'),
     ]);
     if (pErr || rErr) {
@@ -46,6 +47,7 @@ export default function UserManagement() {
       (profiles ?? []).map((p: any) => ({
         id: p.id,
         display_name: p.display_name,
+        email: p.email,
         roles: byUser.get(p.id) ?? [],
       }))
     );
@@ -79,10 +81,12 @@ export default function UserManagement() {
     await load();
   };
 
+  const q = search.trim().toLowerCase();
   const filtered = rows.filter(r =>
-    !search ||
-    r.display_name?.toLowerCase().includes(search.toLowerCase()) ||
-    r.id.toLowerCase().includes(search.toLowerCase())
+    !q ||
+    r.display_name?.toLowerCase().includes(q) ||
+    r.email?.toLowerCase().includes(q) ||
+    r.id.toLowerCase().includes(q)
   );
 
   return (
@@ -102,7 +106,7 @@ export default function UserManagement() {
           <CardHeader>
             <CardTitle>All users</CardTitle>
             <Input
-              placeholder="Search by name or id…"
+              placeholder="Search by name, email, or id…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="max-w-sm mt-2"
@@ -130,6 +134,7 @@ export default function UserManagement() {
                       <tr key={row.id} className="border-b border-border/50">
                         <td className="py-3 pr-4">
                           <div className="font-medium">{row.display_name ?? '—'}</div>
+                          <div className="text-xs text-muted-foreground">{row.email ?? '—'}</div>
                           <div className="text-xs text-muted-foreground font-mono">{row.id.slice(0, 8)}…</div>
                         </td>
                         <td className="py-3 pr-4">
