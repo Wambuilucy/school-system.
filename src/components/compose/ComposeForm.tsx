@@ -54,19 +54,28 @@ export function ComposeForm({ initialGroupId }: ComposeFormProps) {
     }
 
     setIsSending(true);
-    
-    // Simulate sending
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
+    const { error } = await supabase.from('broadcasts').insert({
+      sender_id: user!.id,
+      body: message,
+      group_ids: selectedGroups,
+      is_emergency: isEmergency,
+    });
+
     setIsSending(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     setShowSuccess(true);
-    
+
     setTimeout(() => {
       setShowSuccess(false);
       setMessage('');
       setSelectedGroups([]);
+      setIsEmergency(false);
     }, 3000);
-    
+
     toast.success(`Message sent to ${totalRecipients} recipients!`);
   };
 
