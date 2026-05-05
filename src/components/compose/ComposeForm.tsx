@@ -3,20 +3,26 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Switch } from '@/components/ui/switch';
 import { contactGroups, messageTemplates } from '@/data/mockData';
 import { cn } from '@/lib/utils';
-import { Send, FileText, Users, CheckCircle } from 'lucide-react';
+import { Send, FileText, Users, CheckCircle, Siren } from 'lucide-react';
 import { toast } from 'sonner';
+import { AIAssist } from './AIAssist';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface ComposeFormProps {
   initialGroupId?: string;
 }
 
 export function ComposeForm({ initialGroupId }: ComposeFormProps) {
+  const { user } = useAuth();
   const [message, setMessage] = useState('');
   const [selectedGroups, setSelectedGroups] = useState<string[]>(
     initialGroupId ? [initialGroupId] : []
   );
+  const [isEmergency, setIsEmergency] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -48,19 +54,28 @@ export function ComposeForm({ initialGroupId }: ComposeFormProps) {
     }
 
     setIsSending(true);
-    
-    // Simulate sending
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
+    const { error } = await supabase.from('broadcasts').insert({
+      sender_id: user!.id,
+      body: message,
+      group_ids: selectedGroups,
+      is_emergency: isEmergency,
+    });
+
     setIsSending(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     setShowSuccess(true);
-    
+
     setTimeout(() => {
       setShowSuccess(false);
       setMessage('');
       setSelectedGroups([]);
+      setIsEmergency(false);
     }, 3000);
-    
+
     toast.success(`Message sent to ${totalRecipients} recipients!`);
   };
 
@@ -136,10 +151,23 @@ export function ComposeForm({ initialGroupId }: ComposeFormProps) {
           </div>
         </div>
 
+        {/* Emergency mode */}
+        <div className={cn(
+          "rounded-xl border-2 p-4 flex items-center gap-3 transition-all",
+          isEmergency ? "border-destructive bg-destructive/5" : "border-border bg-card"
+        )}>
+          <Siren className={cn("h-5 w-5", isEmergency ? "text-destructive animate-pulse" : "text-muted-foreground")} />
+          <div className="flex-1">
+            <p className="font-semibold text-sm">Emergency mode</p>
+            <p className="text-xs text-muted-foreground">Force-push past Do-Not-Disturb. Use only for urgent safety alerts.</p>
+          </div>
+          <Switch checked={isEmergency} onCheckedChange={setIsEmergency} />
+        </div>
+
         {/* Send Button */}
         <Button
           size="xl"
-          variant="gradient"
+          variant={isEmergency ? "destructive" : "gradient"}
           className="w-full"
           onClick={handleSend}
           disabled={isSending}
@@ -151,33 +179,37 @@ export function ComposeForm({ initialGroupId }: ComposeFormProps) {
             </>
           ) : (
             <>
-              <Send className="h-5 w-5" />
-              Send Message to {totalRecipients} Recipients
+              {isEmergency ? <Siren className="h-5 w-5" /> : <Send className="h-5 w-5" />}
+              {isEmergency ? 'Send EMERGENCY alert' : 'Send'} to {totalRecipients} Recipients
             </>
           )}
         </Button>
       </div>
 
-      {/* Templates Sidebar */}
-      <div className="rounded-xl border border-border bg-card p-6 shadow-sm h-fit animate-slide-in-right">
-        <div className="flex items-center gap-2 mb-4">
-          <FileText className="h-5 w-5 text-primary" />
-          <h2 className="font-display text-lg font-semibold text-foreground">Quick Templates</h2>
-        </div>
-        
-        <div className="space-y-3">
-          {messageTemplates.map((template) => (
-            <button
-              key={template.id}
-              onClick={() => applyTemplate(template.content)}
-              className="w-full rounded-lg border border-border p-3 text-left transition-all duration-200 hover:border-primary/50 hover:bg-secondary/50"
-            >
-              <p className="font-medium text-foreground">{template.name}</p>
-              <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                {template.content}
-              </p>
-            </button>
-          ))}
+      {/* Right column: AI + Templates */}
+      <div className="space-y-6">
+        <AIAssist message={message} onMessage={setMessage} />
+
+        <div className="rounded-xl border border-border bg-card p-6 shadow-sm h-fit animate-slide-in-right">
+          <div className="flex items-center gap-2 mb-4">
+            <FileText className="h-5 w-5 text-primary" />
+            <h2 className="font-display text-lg font-semibold text-foreground">Quick Templates</h2>
+          </div>
+
+          <div className="space-y-3">
+            {messageTemplates.map((template) => (
+              <button
+                key={template.id}
+                onClick={() => applyTemplate(template.content)}
+                className="w-full rounded-lg border border-border p-3 text-left transition-all duration-200 hover:border-primary/50 hover:bg-secondary/50"
+              >
+                <p className="font-medium text-foreground">{template.name}</p>
+                <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                  {template.content}
+                </p>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

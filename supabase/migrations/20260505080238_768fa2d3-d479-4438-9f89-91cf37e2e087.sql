@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.validate_wellbeing() FROM anon, authenticated, public;

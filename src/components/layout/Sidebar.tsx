@@ -41,6 +41,7 @@ const allItems = {
     { path: '/cocurricular', icon: Trophy, label: 'Co-curricular', roles: ['teacher', 'parent', 'student'] },
     { path: '/behavior', icon: Award, label: 'Behavior & Merits', roles: ['teacher', 'parent', 'student'] },
     { path: '/health', icon: HeartPulse, label: 'Health Records', roles: ['teacher', 'parent', 'student'] },
+    { path: '/wellbeing', icon: HeartPulse, label: 'Wellbeing Pulse', roles: ['teacher', 'parent', 'student'] },
     { path: '/teacher-directory', icon: Users, label: 'Staff Directory', roles: ['teacher', 'parent'] },
   ],
   // Messaging (teacher admin)

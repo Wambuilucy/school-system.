@@ -14,6 +14,68 @@ export type Database = {
   }
   public: {
     Tables: {
+      broadcast_receipts: {
+        Row: {
+          broadcast_id: string
+          id: string
+          read_at: string
+          user_id: string
+        }
+        Insert: {
+          broadcast_id: string
+          id?: string
+          read_at?: string
+          user_id: string
+        }
+        Update: {
+          broadcast_id?: string
+          id?: string
+          read_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "broadcast_receipts_broadcast_id_fkey"
+            columns: ["broadcast_id"]
+            isOneToOne: false
+            referencedRelation: "broadcasts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      broadcasts: {
+        Row: {
+          body: string
+          created_at: string
+          group_ids: string[]
+          id: string
+          is_emergency: boolean
+          language: string | null
+          sender_id: string
+          subject: string | null
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          group_ids?: string[]
+          id?: string
+          is_emergency?: boolean
+          language?: string | null
+          sender_id: string
+          subject?: string | null
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          group_ids?: string[]
+          id?: string
+          is_emergency?: boolean
+          language?: string | null
+          sender_id?: string
+          subject?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -94,6 +156,33 @@ export type Database = {
           created_at?: string
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wellbeing_checkins: {
+        Row: {
+          created_at: string
+          energy: number
+          id: string
+          mood: number
+          note: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          energy: number
+          id?: string
+          mood: number
+          note?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          energy?: number
+          id?: string
+          mood?: number
+          note?: string | null
           user_id?: string
         }
         Relationships: []

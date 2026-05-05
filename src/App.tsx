@@ -35,6 +35,7 @@ import Library from "./pages/Library";
 import Behavior from "./pages/Behavior";
 import Health from "./pages/Health";
 import Analytics from "./pages/Analytics";
+import Wellbeing from "./pages/Wellbeing";
 import Unauthorized from "./pages/Unauthorized";
 import UserManagement from "./pages/UserManagement";
 import NotFound from "./pages/NotFound";
@@ -97,6 +98,7 @@ function AppRoutes() {
       <Route path="/library" element={<ProtectedRoute path="/library"><Library /></ProtectedRoute>} />
       <Route path="/behavior" element={<ProtectedRoute path="/behavior"><Behavior /></ProtectedRoute>} />
       <Route path="/health" element={<ProtectedRoute path="/health"><Health /></ProtectedRoute>} />
+      <Route path="/wellbeing" element={<ProtectedRoute path="/wellbeing"><Wellbeing /></ProtectedRoute>} />
 
       {/* Teacher-only */}
       <Route path="/" element={<ProtectedRoute path="/"><Index /></ProtectedRoute>} />
