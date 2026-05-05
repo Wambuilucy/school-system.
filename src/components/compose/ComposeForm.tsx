@@ -151,10 +151,23 @@ export function ComposeForm({ initialGroupId }: ComposeFormProps) {
           </div>
         </div>
 
+        {/* Emergency mode */}
+        <div className={cn(
+          "rounded-xl border-2 p-4 flex items-center gap-3 transition-all",
+          isEmergency ? "border-destructive bg-destructive/5" : "border-border bg-card"
+        )}>
+          <Siren className={cn("h-5 w-5", isEmergency ? "text-destructive animate-pulse" : "text-muted-foreground")} />
+          <div className="flex-1">
+            <p className="font-semibold text-sm">Emergency mode</p>
+            <p className="text-xs text-muted-foreground">Force-push past Do-Not-Disturb. Use only for urgent safety alerts.</p>
+          </div>
+          <Switch checked={isEmergency} onCheckedChange={setIsEmergency} />
+        </div>
+
         {/* Send Button */}
         <Button
           size="xl"
-          variant="gradient"
+          variant={isEmergency ? "destructive" : "gradient"}
           className="w-full"
           onClick={handleSend}
           disabled={isSending}
@@ -166,16 +179,16 @@ export function ComposeForm({ initialGroupId }: ComposeFormProps) {
             </>
           ) : (
             <>
-              <Send className="h-5 w-5" />
-              Send Message to {totalRecipients} Recipients
+              {isEmergency ? <Siren className="h-5 w-5" /> : <Send className="h-5 w-5" />}
+              {isEmergency ? 'Send EMERGENCY alert' : 'Send'} to {totalRecipients} Recipients
             </>
           )}
         </Button>
       </div>
 
-      {/* Templates Sidebar */}
-      <div className="rounded-xl border border-border bg-card p-6 shadow-sm h-fit animate-slide-in-right">
-        <div className="flex items-center gap-2 mb-4">
+      {/* Right column: AI + Templates */}
+      <div className="space-y-6">
+        <AIAssist message={message} onMessage={setMessage} />
           <FileText className="h-5 w-5 text-primary" />
           <h2 className="font-display text-lg font-semibold text-foreground">Quick Templates</h2>
         </div>
