@@ -25,6 +25,7 @@ export const routePermissions: Record<string, UserRole[]> = {
   '/library': ['teacher', 'parent', 'student'],
   '/behavior': ['teacher', 'parent', 'student'],
   '/health': ['teacher', 'parent', 'student'],
+  '/wellbeing': ['teacher', 'parent', 'student'],
 
   // Teacher-only
   '/': ['teacher'],
