@@ -47,11 +47,13 @@ const allItems = {
   // Messaging (teacher admin)
   messaging: [
     { path: '/', icon: MessageSquare, label: 'Messaging Dashboard', roles: ['teacher'] },
+    { path: '/inbox', icon: Bell, label: 'My Inbox', roles: ['teacher', 'parent', 'student'] },
     { path: '/chat', icon: MessagesSquare, label: 'Direct Messages', roles: ['teacher', 'parent', 'student'] },
     { path: '/compose', icon: Send, label: 'Compose Message', roles: ['teacher'] },
     { path: '/groups', icon: Users, label: 'Contact Groups', roles: ['teacher'] },
     { path: '/templates', icon: FileText, label: 'Templates', roles: ['teacher'] },
     { path: '/history', icon: History, label: 'Message History', roles: ['teacher'] },
+    { path: '/preferences', icon: Settings, label: 'Language Preferences', roles: ['teacher', 'parent', 'student'] },
   ],
   // Engagement & system — Suggestions then Notifications
   engagement: [

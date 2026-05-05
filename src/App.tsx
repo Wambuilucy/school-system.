@@ -36,6 +36,8 @@ import Behavior from "./pages/Behavior";
 import Health from "./pages/Health";
 import Analytics from "./pages/Analytics";
 import Wellbeing from "./pages/Wellbeing";
+import Inbox from "./pages/Inbox";
+import Preferences from "./pages/Preferences";
 import Unauthorized from "./pages/Unauthorized";
 import UserManagement from "./pages/UserManagement";
 import NotFound from "./pages/NotFound";
@@ -99,6 +101,8 @@ function AppRoutes() {
       <Route path="/behavior" element={<ProtectedRoute path="/behavior"><Behavior /></ProtectedRoute>} />
       <Route path="/health" element={<ProtectedRoute path="/health"><Health /></ProtectedRoute>} />
       <Route path="/wellbeing" element={<ProtectedRoute path="/wellbeing"><Wellbeing /></ProtectedRoute>} />
+      <Route path="/inbox" element={<ProtectedRoute path="/inbox"><Inbox /></ProtectedRoute>} />
+      <Route path="/preferences" element={<ProtectedRoute path="/preferences"><Preferences /></ProtectedRoute>} />
 
       {/* Teacher-only */}
       <Route path="/" element={<ProtectedRoute path="/"><Index /></ProtectedRoute>} />
