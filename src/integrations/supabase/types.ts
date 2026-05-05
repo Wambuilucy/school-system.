@@ -43,6 +43,38 @@ export type Database = {
           },
         ]
       }
+      broadcast_translations: {
+        Row: {
+          body: string
+          broadcast_id: string
+          created_at: string
+          id: string
+          language: string
+        }
+        Insert: {
+          body: string
+          broadcast_id: string
+          created_at?: string
+          id?: string
+          language: string
+        }
+        Update: {
+          body?: string
+          broadcast_id?: string
+          created_at?: string
+          id?: string
+          language?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "broadcast_translations_broadcast_id_fkey"
+            columns: ["broadcast_id"]
+            isOneToOne: false
+            referencedRelation: "broadcasts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       broadcasts: {
         Row: {
           body: string
@@ -85,6 +117,7 @@ export type Database = {
           email: string | null
           id: string
           phone: string | null
+          preferred_language: string
           updated_at: string
         }
         Insert: {
@@ -95,6 +128,7 @@ export type Database = {
           email?: string | null
           id: string
           phone?: string | null
+          preferred_language?: string
           updated_at?: string
         }
         Update: {
@@ -105,6 +139,7 @@ export type Database = {
           email?: string | null
           id?: string
           phone?: string | null
+          preferred_language?: string
           updated_at?: string
         }
         Relationships: []
