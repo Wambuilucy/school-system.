@@ -17,10 +17,12 @@ interface ComposeFormProps {
 }
 
 export function ComposeForm({ initialGroupId }: ComposeFormProps) {
+  const { user } = useAuth();
   const [message, setMessage] = useState('');
   const [selectedGroups, setSelectedGroups] = useState<string[]>(
     initialGroupId ? [initialGroupId] : []
   );
+  const [isEmergency, setIsEmergency] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
