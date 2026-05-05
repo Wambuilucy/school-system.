@@ -189,23 +189,27 @@ export function ComposeForm({ initialGroupId }: ComposeFormProps) {
       {/* Right column: AI + Templates */}
       <div className="space-y-6">
         <AIAssist message={message} onMessage={setMessage} />
-          <FileText className="h-5 w-5 text-primary" />
-          <h2 className="font-display text-lg font-semibold text-foreground">Quick Templates</h2>
-        </div>
-        
-        <div className="space-y-3">
-          {messageTemplates.map((template) => (
-            <button
-              key={template.id}
-              onClick={() => applyTemplate(template.content)}
-              className="w-full rounded-lg border border-border p-3 text-left transition-all duration-200 hover:border-primary/50 hover:bg-secondary/50"
-            >
-              <p className="font-medium text-foreground">{template.name}</p>
-              <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                {template.content}
-              </p>
-            </button>
-          ))}
+
+        <div className="rounded-xl border border-border bg-card p-6 shadow-sm h-fit animate-slide-in-right">
+          <div className="flex items-center gap-2 mb-4">
+            <FileText className="h-5 w-5 text-primary" />
+            <h2 className="font-display text-lg font-semibold text-foreground">Quick Templates</h2>
+          </div>
+
+          <div className="space-y-3">
+            {messageTemplates.map((template) => (
+              <button
+                key={template.id}
+                onClick={() => applyTemplate(template.content)}
+                className="w-full rounded-lg border border-border p-3 text-left transition-all duration-200 hover:border-primary/50 hover:bg-secondary/50"
+              >
+                <p className="font-medium text-foreground">{template.name}</p>
+                <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                  {template.content}
+                </p>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
