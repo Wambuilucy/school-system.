@@ -3,10 +3,14 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Switch } from '@/components/ui/switch';
 import { contactGroups, messageTemplates } from '@/data/mockData';
 import { cn } from '@/lib/utils';
-import { Send, FileText, Users, CheckCircle } from 'lucide-react';
+import { Send, FileText, Users, CheckCircle, Siren } from 'lucide-react';
 import { toast } from 'sonner';
+import { AIAssist } from './AIAssist';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface ComposeFormProps {
   initialGroupId?: string;
